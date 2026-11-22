@@ -152,7 +152,7 @@ int main()
     cout << "Created " << locations.size() << " locations" << endl;
 
     // ---------------- ENCOUNTER OBEJECTS  ---------------- 
-    //For each line in the encounter data, build one Encounter and connect it to its patient and its locations
+    //For each line in the encounter data, build one Encounter object and connect it to its patient and its locations
     vector<string> encounterLines = loadFile("data/MimicEncounter.ndjson");
     vector<Encounter *> encounters;
     int skipped = 0;
@@ -161,7 +161,7 @@ int main()
         json j = json::parse(line);
         string id = j["id"];
 
-        // get patient ID 
+        // get patient ID (after the /)
         string ref = j["subject"]["reference"];
         string patientId = ref.substr(ref.find('/') + 1);
 
@@ -171,11 +171,11 @@ int main()
             skipped++;
             continue;
         }
-        Patient *p = patients[patientId];
+        Patient *p = patients[patientId]; // gets patient out of map
 
         // create encounter and connect it to its patient
-        Encounter *e = new Encounter(id, p);
-        p->addEncounter(e);
+        Encounter *e = new Encounter(id, p);    
+        p->addEncounter(e);                  
 
         // connect encounter to each of its locations
         if (j.contains("location"))
