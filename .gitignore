@@ -1,0 +1,7 @@
+program
+program_hash
+program_sorted
+a.out
+*.o
+.DS_Store
+.vscode/
