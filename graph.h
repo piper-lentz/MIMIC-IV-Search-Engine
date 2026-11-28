@@ -37,52 +37,14 @@ public:
     string getId() { return id; }
     string getName() { return name; }
 
-    // helper methods for encounters
+    // helper methods for encounters in Location class
     void addEncounter(Encounter *e) { encounters.push_back(e); }
     int getEncounterCount() { return encounters.size(); }
 
-    // helper methods for location
-    void printAbbreviatedLocationInfo(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Location ID: " << id << " ====" << endl;
-        cout << indent << "Location Name: " << name << endl;
-        cout << indent << "Number of Encounters: " << encounters.size() << endl;
-    }
-
-    void printAllLocationInfo(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Location ID: " << id << " ====" << endl;
-        cout << indent << "Location Name: " << name << endl;
-        cout << indent << "Number of Encounters: " << encounters.size() << endl;
-        // this throws an error: the encounter class is not fully defined yet
-        /*
-        for (Encounter *e : encounters)
-        {
-            e->printEncounterInfoSpecificLocation(indentLevel + 1);
-        }
-        */
-    }
-
-    void printLocationInfoSpecificEncounter(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Location ID: " << id << " ====" << endl;
-        cout << indent << "Location Name: " << name << endl;
-    }
+    // helper methods for Location class
+    void printAbbreviatedLocationInfo(int indentLevel = 0);
+    void printAllLocationInfo(int indentLevel = 0);
+    void printLocationInfoSpecificEncounter(int indentLevel = 0);
 };
 
 class Encounter
@@ -101,56 +63,13 @@ public:
         this->subject = subject;
     }
 
-    // helper methods for locations
+    // helper methods for locations in Encounter class
     void addLocation(Location *loc) { locations.push_back(loc); }
 
-    // helper methods for encounter
-
-    // these throw an error: the patient class is not fully defined yet
-    /*
-    void printAllEncounterInfo(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Encounter ID: " << id << " ====" << endl;
-        cout << indent << "Patient ID: " << subject->getId() << endl;
-        cout << indent << "Number of Locations: " << locations.size() << endl;
-        for (Location *l : locations)
-        {
-            l->printLocationInfoSpecificEncounter(indentLevel + 1);
-        }
-    }
-
-    void printEncounterInfoSpecificLocation(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Encounter ID: " << id << " ====" << endl;
-        cout << indent << "Patient ID: " << subject->getId() << endl;
-    }
-    */
-
-    void printEncounterInfoSpecificPatient(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Encounter ID: " << id << " ====" << endl;
-        cout << indent << "Number of Locations: " << locations.size() << endl;
-        for (Location *l : locations)
-        {
-            l->printLocationInfoSpecificEncounter(indentLevel + 1);
-        }
-    }
-
+    // helper methods for Encounter class
+    void printEncounterInfoSpecificPatient(int indentLevel = 0);
+    void printAllEncounterInfo(int indentLevel = 0);
+    void printEncounterInfoSpecificLocation(int indentLevel = 0);
 };
 
 class Patient
@@ -186,52 +105,140 @@ public:
     // string getHispanicLatino() { return HispanicLatino; }
     // string getMaritalStatus() { return maritalStatus; }
 
-    // helper methods for encounters
+    // helper methods for encounters in Patient class
     int getEncounterCount() { return encounters.size(); }
     void addEncounter(Encounter *e) { encounters.push_back(e); }
     vector<Encounter *> getEncounters() { return encounters; }
 
-    // helper methods for patient
-    void printAbbreviatedPatientInfo(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Patient ID: " << id << " ====" << endl;
-        // TO DO: uncomment when fields are added to constructor
-        // cout << indent << "Name: " << name << endl;
-        cout << indent << "Gender: " << gender << endl;
-        cout << indent << "Birth Date: " << birthDate << endl;
-        // cout << indent << "Ethnicity: " << ethnicity << endl;
-        // cout << indent << "Hispanic/Latino: " << HispanicLatino << endl;
-        // cout << indent << "Marital Status: " << maritalStatus << endl;
-        cout << indent << "Number of Encounters: " << encounters.size() << endl;
-    }
-
-    void printAllPatientInfo(int indentLevel = 0)
-    {
-        string indent = "";
-        for (int i = 0; i < indentLevel; i++)
-        {
-            indent += "  ";
-        }
-        cout << indent << "==== Patient ID: " << id << " ====" << endl;
-        // TO DO: uncomment when fields are added to constructor
-        // cout << indent << "Name: " << name << endl;
-        cout << indent << "Gender: " << gender << endl;
-        cout << indent << "Birth Date: " << birthDate << endl;
-        // cout << indent << "Ethnicity: " << ethnicity << endl;
-        // cout << indent << "Hispanic/Latino: " << HispanicLatino << endl;
-        // cout << indent << "Marital Status: " << maritalStatus << endl;
-        cout << indent << "Number of Encounters: " << encounters.size() << endl;
-        for (Encounter *e : encounters)
-        {
-            e->printEncounterInfoSpecificPatient(indentLevel + 1);
-        }
-    }
+    // helper methods for Patient class
+    void printAbbreviatedPatientInfo(int indentLevel = 0);
+    void printAllPatientInfo(int indentLevel = 0);
 };
+
+// helper methods for Location class
+void Location::printAbbreviatedLocationInfo(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Location ID: " << id << " ====" << endl;
+    cout << indent << "Location Name: " << name << endl;
+    cout << indent << "Number of Encounters: " << encounters.size() << endl;
+}
+
+void Location::printAllLocationInfo(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Location ID: " << id << " ====" << endl;
+    cout << indent << "Location Name: " << name << endl;
+    cout << indent << "Number of Encounters: " << encounters.size() << endl;
+    for (Encounter *e : encounters)
+    {
+        e->printEncounterInfoSpecificLocation(indentLevel + 1);
+    }
+    
+}
+
+void Location::printLocationInfoSpecificEncounter(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Location ID: " << id << " ====" << endl;
+    cout << indent << "Location Name: " << name << endl;
+}
+
+// helper methods for Encounter class
+void Encounter::printAllEncounterInfo(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Encounter ID: " << id << " ====" << endl;
+    cout << indent << "Patient ID: " << subject->getId() << endl;
+    cout << indent << "Number of Locations: " << locations.size() << endl;
+    for (Location *l : locations)
+    {
+        l->printLocationInfoSpecificEncounter(indentLevel + 1);
+    }
+}
+
+void Encounter::printEncounterInfoSpecificLocation(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Encounter ID: " << id << " ====" << endl;
+    cout << indent << "Patient ID: " << subject->getId() << endl;
+}
+
+void Encounter::printEncounterInfoSpecificPatient(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Encounter ID: " << id << " ====" << endl;
+    cout << indent << "Number of Locations: " << locations.size() << endl;
+    for (Location *l : locations)
+    {
+        l->printLocationInfoSpecificEncounter(indentLevel + 1);
+    }
+}
+
+// helper methods for Patient class
+void Patient::printAbbreviatedPatientInfo(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Patient ID: " << id << " ====" << endl;
+    // TO DO: uncomment when fields are added to constructor
+    // cout << indent << "Name: " << name << endl;
+    cout << indent << "Gender: " << gender << endl;
+    cout << indent << "Birth Date: " << birthDate << endl;
+    // cout << indent << "Ethnicity: " << ethnicity << endl;
+    // cout << indent << "Hispanic/Latino: " << HispanicLatino << endl;
+    // cout << indent << "Marital Status: " << maritalStatus << endl;
+    cout << indent << "Number of Encounters: " << encounters.size() << endl;
+}
+
+void Patient::printAllPatientInfo(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    cout << indent << "==== Patient ID: " << id << " ====" << endl;
+    // TO DO: uncomment when fields are added to constructor
+    // cout << indent << "Name: " << name << endl;
+    cout << indent << "Gender: " << gender << endl;
+    cout << indent << "Birth Date: " << birthDate << endl;
+    // cout << indent << "Ethnicity: " << ethnicity << endl;
+    // cout << indent << "Hispanic/Latino: " << HispanicLatino << endl;
+    // cout << indent << "Marital Status: " << maritalStatus << endl;
+    cout << indent << "Number of Encounters: " << encounters.size() << endl;
+    for (Encounter *e : encounters)
+    {
+        e->printEncounterInfoSpecificPatient(indentLevel + 1);
+    }
+}
 
 // readFile helper function
 // Inputs: fileName (string), lines (reference to vector<string>)
