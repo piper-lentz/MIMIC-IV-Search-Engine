@@ -21,6 +21,27 @@ void searchPatient(unordered_map<string, Patient *> &patients)
     }
 }
 
+// searchLocation helper function
+// Inputs: locations (unordered_map<string, Location *>)
+// Takes user input for location ID and searches for location in locations map
+// If location is found, prints location info
+void searchLocation(unordered_map<string, Location *> &locations)
+{
+    string id;
+    cout << "Enter location ID: ";
+    cin >> id;
+    if (locations.find(id) != locations.end())
+    {
+        cout << "Location found" << endl;
+        Location *l = locations[id];
+        l->printAllLocationInfo();
+    }
+    else
+    {
+        cout << "Location not found" << endl;
+    }
+}
+
 // main function
 int main()
 {
@@ -116,8 +137,7 @@ int main()
                 searchPatient(patients);
                 break;
             case 2:
-                cout << "Search by location is not yet implemented." << endl;
-                // TO DO: implement search by location
+                searchLocation(locations);
                 break;
             case 3: 
                 cout << "Search by encounter is not yet implemented." << endl;
