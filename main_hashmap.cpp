@@ -42,6 +42,27 @@ void searchLocation(unordered_map<string, Location *> &locations)
     }
 }
 
+// searchEncounter helper function
+// Inputs: encounters (vector<Encounter *>)
+// Takes user input for encounter ID and searches for encounter in encounters vector
+// If encounter is found, prints encounter info
+void searchEncounter(vector<Encounter *> &encounters)
+{
+    string id;
+    cout << "Enter encounter ID: ";
+    cin >> id;
+    for (Encounter *e : encounters)
+    {
+        if (e->getId() == id)
+        {
+            cout << "Encounter found" << endl;
+            e->printAllEncounterInfo();
+            return;
+        }
+    }
+    cout << "Encounter not found" << endl;
+}
+
 // main function
 int main()
 {
@@ -140,8 +161,7 @@ int main()
                 searchLocation(locations);
                 break;
             case 3: 
-                cout << "Search by encounter is not yet implemented." << endl;
-                // TO DO: implement search by encounter
+                searchEncounter(encounters);
                 break;
             case 4:
                 for (auto pair : patients)

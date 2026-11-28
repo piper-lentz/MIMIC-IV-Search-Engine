@@ -63,6 +63,9 @@ public:
         this->subject = subject;
     }
 
+    // get methods
+    string getId() { return id; }
+
     // helper methods for locations in Encounter class
     void addLocation(Location *loc) { locations.push_back(loc); }
 
@@ -113,6 +116,7 @@ public:
     // helper methods for Patient class
     void printAbbreviatedPatientInfo(int indentLevel = 0);
     void printAllPatientInfo(int indentLevel = 0);
+    void printPatientInfoSpecificEncounter(int indentLevel = 0);
 };
 
 // helper methods for Location class
@@ -166,6 +170,7 @@ void Encounter::printAllEncounterInfo(int indentLevel)
     }
     cout << indent << "==== Encounter ID: " << id << " ====" << endl;
     cout << indent << "Patient ID: " << subject->getId() << endl;
+    subject->printPatientInfoSpecificEncounter(indentLevel + 1);
     cout << indent << "Number of Locations: " << locations.size() << endl;
     for (Location *l : locations)
     {
@@ -238,6 +243,22 @@ void Patient::printAllPatientInfo(int indentLevel)
     {
         e->printEncounterInfoSpecificPatient(indentLevel + 1);
     }
+}
+
+void Patient::printPatientInfoSpecificEncounter(int indentLevel)
+{
+    string indent = "";
+    for (int i = 0; i < indentLevel; i++)
+    {
+        indent += "  ";
+    }
+    // TO DO: uncomment when fields are added to constructor
+    // cout << indent << "Name: " << name << endl;
+    cout << indent << "Gender: " << gender << endl;
+    cout << indent << "Birth Date: " << birthDate << endl;
+    // cout << indent << "Ethnicity: " << ethnicity << endl;
+    // cout << indent << "Hispanic/Latino: " << HispanicLatino << endl;
+    // cout << indent << "Marital Status: " << maritalStatus << endl;
 }
 
 // readFile helper function
