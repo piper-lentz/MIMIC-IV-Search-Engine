@@ -1,5 +1,5 @@
 program
-program_hash
+program_hashmap
 program_sorted
 a.out
 *.o
